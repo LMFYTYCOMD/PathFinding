@@ -28,6 +28,11 @@ class Grid:
             for node in row:
                 node.face_val = 0
 
+
+
+
+
+
 # grid1 = Grid(10,10)
 # grid2 = Grid(10,10)
 # grid3 = Grid(10,10)
@@ -48,7 +53,6 @@ class Grid:
 # algorithms.BFS.breath_first(grid4.grid, 3, 5, 9, 9)
 # grid4.print_grid()
 # print('\n')
-
 
 
 
