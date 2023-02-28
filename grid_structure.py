@@ -27,5 +27,9 @@ class Grid:
 #access node in the grid by grid[y][x], the value return will be coordinate of x, y. For example grid[1][2] = (2, 1)
 
 grid1 = Grid(10,10)
+grid2 = Grid(10,10)
 algorithms.A_star.a_star(grid1.grid, 3, 5, 9, 9)
 grid1.print_grid()
+print('\n')
+algorithms.Dijkstra.dijkstra(grid2.grid, 3, 5 ,9, 9)
+grid2.print_grid()
