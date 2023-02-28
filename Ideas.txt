@@ -1,0 +1,13 @@
+(Done) Create a grid based graph (grid of 0)
+ 
+Pdd a function that allows user to add custom obstacles (lines, denoted as 1)
+
+(Done) Add 4 types of path-finding: DFS, BFS, Dijkstra, A*
+
+Prompt user to start, pick start and target
+
+Prompt user to add obstacles until they don't want to add anymore
+
+Ask them what type of search they want to use, then start
+
+(Done) Print out the grid.

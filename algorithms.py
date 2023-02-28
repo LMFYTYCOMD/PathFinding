@@ -1,5 +1,6 @@
 import math
 import heapq
+from collections import deque
 
 class Heuristic:
     def Manhattan(start, target):
@@ -65,7 +66,7 @@ class A_star:
         for node in shortest_path:
             node.face_val = 'p'
         
-        print(f'Path distance of {len(shortest_path)} found after exploring {count} nodes')
+        print(f'A* found Path distance of {len(shortest_path)} after exploring {count} nodes')
 
 class Dijkstra:
     def dijkstra(grid, start_x, start_y, target_x, target_y):
@@ -118,17 +119,98 @@ class Dijkstra:
         for node in shortest_path:
             node.face_val = 'p'
             
-        print(f'Path distance of {len(shortest_path)} found after exploring {count} nodes')
+        print(f'Dijkstra found Path distance of {len(shortest_path)} after exploring {count} nodes')
 
 class DFS:
-    pass
+    def depth_first(grid, start_x, start_y, target_x, target_y):
+        start = grid[start_y][start_x]
+        target = grid[target_y][target_x]
 
+        nodes_path_to_visit = deque()
+        initial_path = [start]
+        nodes_path_to_visit.append(initial_path)
+
+        count = 0
+        visited_nodes = set()           
+
+        while nodes_path_to_visit:
+
+            current_path = nodes_path_to_visit.pop() #path of object nodes
+            current_node = current_path[-1] #dfs -> get the last one
+
+            if current_node not in visited_nodes:
+                visited_nodes.add(current_node)
+
+                visited_nodes.add(current_node)
+                current_node.face_val = 1
+                count += 1
+
+                if current_node.coordinate == target.coordinate:
+                    break
+
+                neighboring_nodes = []
+                x, y = current_node.coordinate
+                for dx, dy in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < len(grid[0]) and 0 <= ny < len(grid):
+                        node = grid[ny][nx]
+                        neighboring_nodes.append(node)
+                
+                for neighbor in neighboring_nodes:
+                    neighbor.face_val = 2
+                    new_path = current_path[:] #copy the current path
+                    new_path.append(neighbor) #append the neighbor that is not in visited_nodes
+                    nodes_path_to_visit.append(new_path)
+
+        for node in current_path:
+            node.face_val = 'p'
+        
+        print(f'DFS found Path distance of {len(current_path)} after exploring {count} nodes')
+                                    
 class BFS:
-    pass                           
+    def breath_first(grid, start_x, start_y, target_x, target_y):
+        start = grid[start_y][start_x]
+        target = grid[target_y][target_x]
 
+        nodes_path_to_visit = deque()
+        initial_path = [start]
+        nodes_path_to_visit.appendleft(initial_path)
 
+        count = 0
+        visited_nodes = set()                 
 
+        while nodes_path_to_visit:
 
+            current_path = nodes_path_to_visit.pop() #path of object nodes
+            current_node = current_path[-1] #dfs -> get the last one
+
+            if current_node not in visited_nodes:
+                visited_nodes.add(current_node)
+
+                current_node.face_val = 1
+                count += 1
+
+                if current_node.coordinate == target.coordinate:
+                    break
+
+                neighboring_nodes = []
+                x, y = current_node.coordinate
+                for dx, dy in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < len(grid[0]) and 0 <= ny < len(grid):
+                        node = grid[ny][nx]
+                        neighboring_nodes.append(node)
+
+                for neighbor in neighboring_nodes:
+                    neighbor.face_val = 2
+                    new_path = current_path[:] #copy the current path
+                    new_path.append(neighbor) #append the neighbor that is not in visited_nodes
+                    nodes_path_to_visit.appendleft(new_path)
+
+        for node in current_path:
+            node.face_val = 'p'
+        
+        print(f'BFS found Path distance of {len(current_path)} after exploring {count} nodes')
 
 
 

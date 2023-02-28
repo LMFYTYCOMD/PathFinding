@@ -23,13 +23,83 @@ class Grid:
         for row in self.grid:
             print(row)
 
+    def reset_grid_value(self):
+        for row in self.grid:
+            for node in row:
+                node.face_val = 0
 
-#access node in the grid by grid[y][x], the value return will be coordinate of x, y. For example grid[1][2] = (2, 1)
+# grid1 = Grid(10,10)
+# grid2 = Grid(10,10)
+# grid3 = Grid(10,10)
+# grid4 = Grid(10,10)
 
-grid1 = Grid(10,10)
-grid2 = Grid(10,10)
-algorithms.A_star.a_star(grid1.grid, 3, 5, 9, 9)
-grid1.print_grid()
-print('\n')
-algorithms.Dijkstra.dijkstra(grid2.grid, 3, 5 ,9, 9)
-grid2.print_grid()
+# algorithms.A_star.a_star(grid1.grid, 3, 5, 9, 9)
+# grid1.print_grid()
+# print('\n')
+
+# algorithms.Dijkstra.dijkstra(grid2.grid, 3, 5 ,9, 9)
+# grid2.print_grid()
+# print('\n')
+
+# algorithms.DFS.depth_first(grid3.grid, 3, 5, 9, 9)
+# grid3.print_grid()
+# print('\n')
+
+# algorithms.BFS.breath_first(grid4.grid, 3, 5, 9, 9)
+# grid4.print_grid()
+# print('\n')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
