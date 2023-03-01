@@ -21,7 +21,7 @@ class A_star:
         count = 0
         distance_to_others = {}
 
-        path = {} #keep track of 
+        path = {} #keep track of node: previous node
         
         for row in grid:
             for node in row:
@@ -40,20 +40,25 @@ class A_star:
                 nx, ny = x + dx, y + dy
                 if 0 <= nx < len(grid[0]) and 0 <= ny < len(grid):
                     node = grid[ny][nx]
-                    neighboring_nodes.append(node)
+                    if node.obs == False: #if not obs
+                        neighboring_nodes.append(node)
 
             for neighbor in neighboring_nodes:
                 new_distance = current_distance + Heuristic.Manhattan(start, neighbor) + Heuristic.Manhattan(neighbor, target)
 
                 if new_distance < distance_to_others[neighbor]:
                     distance_to_others[neighbor] = new_distance
-                    current_node.face_val = 1
-                    neighbor.face_val = 2 #uncomment to see border made up of unvisited neighbors
+                    current_node.face_val = 1 #change face_val from 2 to 1
+                    neighbor.face_val = 2 #border made up of unvisited neighbors
 
                     path[neighbor] = current_node #Each key-value pair represents a node in the grid and its previous node on the shortest path to that node.
 
                     heapq.heappush(nodes_to_explore, (new_distance, neighbor))
                     count += 1
+
+        if distance_to_others[target] == math.inf: #if target is not reached, i.e. no path found
+            print(f'A* found no path after exploring {count} nodes')
+            return
 
         # construct shortest path
         shortest_path = []
@@ -94,20 +99,25 @@ class Dijkstra:
                 nx, ny = x + dx, y + dy
                 if 0 <= nx < len(grid[0]) and 0 <= ny < len(grid):
                     node = grid[ny][nx]
-                    neighboring_nodes.append(node)
+                    if node.obs == False:
+                        neighboring_nodes.append(node)
             
             for neighbor in neighboring_nodes:
                 new_distance = current_distance + Heuristic.Manhattan(start, neighbor)
 
                 if new_distance < distance_to_others[neighbor]:
                     distance_to_others[neighbor] = new_distance
-                    current_node.face_val = 1 #change face_val from 2 to 1
+                    current_node.face_val = 1 
                     neighbor.face_val = 2
 
                     path[neighbor] = current_node
 
                     heapq.heappush(nodes_to_explore, (new_distance, neighbor))
                     count += 1
+        
+        if distance_to_others[target] == math.inf:
+            print(f'Dijkstra found no path after exploring {count} nodes')
+            return
 
         shortest_path = []
         current_node = target
@@ -128,7 +138,7 @@ class DFS:
 
         nodes_path_to_visit = deque()
         initial_path = [start]
-        nodes_path_to_visit.append(initial_path)
+        nodes_path_to_visit.append(initial_path) #dfs -> last in, first out
 
         count = 0
         visited_nodes = set()           
@@ -136,7 +146,7 @@ class DFS:
         while nodes_path_to_visit:
 
             current_path = nodes_path_to_visit.pop() #path of object nodes
-            current_node = current_path[-1] #dfs -> get the last one
+            current_node = current_path[-1] 
 
             if current_node not in visited_nodes:
                 visited_nodes.add(current_node)
@@ -154,13 +164,18 @@ class DFS:
                     nx, ny = x + dx, y + dy
                     if 0 <= nx < len(grid[0]) and 0 <= ny < len(grid):
                         node = grid[ny][nx]
-                        neighboring_nodes.append(node)
+                        if node.obs == False:
+                            neighboring_nodes.append(node) #dfs -> last in, first out
                 
                 for neighbor in neighboring_nodes:
                     neighbor.face_val = 2
                     new_path = current_path[:] #copy the current path
                     new_path.append(neighbor) #append the neighbor that is not in visited_nodes
                     nodes_path_to_visit.append(new_path)
+
+        if target.face_val == 0: #target was never reached and its face val was never changed
+            print(f'DFS found no path after exploring {count} nodes')
+            return
 
         for node in current_path:
             node.face_val = 'p'
@@ -174,7 +189,7 @@ class BFS:
 
         nodes_path_to_visit = deque()
         initial_path = [start]
-        nodes_path_to_visit.appendleft(initial_path)
+        nodes_path_to_visit.appendleft(initial_path) #bfs -> first in, first out
 
         count = 0
         visited_nodes = set()                 
@@ -182,7 +197,7 @@ class BFS:
         while nodes_path_to_visit:
 
             current_path = nodes_path_to_visit.pop() #path of object nodes
-            current_node = current_path[-1] #dfs -> get the last one
+            current_node = current_path[-1]
 
             if current_node not in visited_nodes:
                 visited_nodes.add(current_node)
@@ -199,26 +214,23 @@ class BFS:
                     nx, ny = x + dx, y + dy
                     if 0 <= nx < len(grid[0]) and 0 <= ny < len(grid):
                         node = grid[ny][nx]
-                        neighboring_nodes.append(node)
+                        if node.obs == False:
+                            neighboring_nodes.append(node)
 
                 for neighbor in neighboring_nodes:
                     neighbor.face_val = 2
                     new_path = current_path[:] #copy the current path
                     new_path.append(neighbor) #append the neighbor that is not in visited_nodes
-                    nodes_path_to_visit.appendleft(new_path)
+                    nodes_path_to_visit.appendleft(new_path) #bfs -> first in, first out
+
+        if target.face_val == 0:
+            print(f'BFS found no path after exploring {count} nodes')
+            return
 
         for node in current_path:
             node.face_val = 'p'
         
         print(f'BFS found Path distance of {len(current_path)} after exploring {count} nodes')
-
-
-
-
-
-
-
-
 
 
 

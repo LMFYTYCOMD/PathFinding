@@ -1,13 +1,13 @@
 (Done) Create a grid based graph (grid of 0)
  
-Add a method that allows user to add custom obstacles (lines, denoted as something)
+(Done) Add a method that allows user to add % of obstacles
 
 (Done) Add 4 types of path-finding: DFS, BFS, Dijkstra, A*
 
 (Done) Prompt user to start, pick start and target
 
-Prompt user to add obstacles until they don't want to add anymore
-
 (Done) Ask them what type of search they want to use, then start
 
 (Done) Print out the grid.
+
+Allow for diagonal traversal. Prompt user to select (y/n)

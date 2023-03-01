@@ -2,6 +2,13 @@ import grid_structure, algorithms
 
 class PathFinding:
 
+    def informative():
+        print('\nDenotation: ')
+        print('0: node that has not been explored nor added to neighbors')
+        print('1: node that has been explored')
+        print('2: neighboring node that was added to neighbors but never explored')
+        print('O: obstacles')
+
     def create_grid():
         print('Creating grid...\n')
         x = input('Enter the number of column: ')
@@ -62,6 +69,19 @@ class PathFinding:
     def start():
         x_col, y_row = PathFinding.create_grid()
         grid_object = grid_structure.Grid(x_col, y_row)
+     
+        while True:
+            try:
+                obs_percentage = int(input('\nInput the amount of obstacles you want (in percentage, between 0 and 100): '))
+                assert 0 <= obs_percentage <= 100
+            except ValueError:
+                print('Invalid input. Enter numeric value only')
+            except AssertionError:
+                print('Invalid input. Enter number between 0 and 100')
+            else:
+                break
+            
+        grid_object.set_obs(obs_percentage)
         grid = grid_object.grid
 
         x_start, y_start = PathFinding.start_coordinate()
@@ -75,30 +95,41 @@ class PathFinding:
             x_target, y_target = PathFinding.target_coordinate()
 
         pathfinding_choice = PathFinding.pathfinding_type()
+        PathFinding.informative()
 
         for choice in pathfinding_choice:
-
+            
             if choice == 'y0' and pathfinding_choice.index(choice) == 0:
                 print('\n')
                 grid_object.reset_grid_value()
+                grid[y_start][x_start].reset()
+                grid[y_target][x_target].reset()
                 algorithms.DFS.depth_first(grid, x_start, y_start, x_target, y_target)
                 grid_object.print_grid()
 
             elif choice == 'y1' and pathfinding_choice.index(choice) == 1:
                 print('\n')
                 grid_object.reset_grid_value()
+                grid[y_start][x_start].reset()
+                grid[y_target][x_target].reset()
                 algorithms.BFS.breath_first(grid, x_start, y_start, x_target, y_target)
                 grid_object.print_grid()
 
             elif choice == 'y2' and pathfinding_choice.index(choice) == 2:
                 print('\n')
                 grid_object.reset_grid_value()
+                grid[y_start][x_start].reset()
+                grid[y_target][x_target].reset()
+
                 algorithms.Dijkstra.dijkstra(grid, x_start, y_start, x_target, y_target)
                 grid_object.print_grid()
 
             elif choice == 'y3' and pathfinding_choice.index(choice) == 3:
                 print('\n')
                 grid_object.reset_grid_value()
+                grid[y_start][x_start].reset()
+                grid[y_target][x_target].reset()
+
                 algorithms.A_star.a_star(grid, x_start, y_start, x_target, y_target)
                 grid_object.print_grid()
 

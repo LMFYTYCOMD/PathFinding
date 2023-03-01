@@ -1,9 +1,11 @@
 import algorithms
+from random import randint
 
 class Node:
     def __init__(self, x, y, face_val = 0):
         self.face_val = face_val
         self.coordinate = (x, y)
+        self.obs = False
 
     def __repr__(self) -> str:
         return str(self.face_val)
@@ -14,6 +16,9 @@ class Node:
     def change_face_val(self, new_val):
         self.face_val = new_val
 
+    def reset(self):
+        self.face_val = 0
+        self.obs = False
 
 class Grid:
     def __init__(self, x_num, y_num):
@@ -26,10 +31,15 @@ class Grid:
     def reset_grid_value(self):
         for row in self.grid:
             for node in row:
-                node.face_val = 0
+                if node.face_val != 'O':
+                    node.face_val = 0
 
-
-
+    def set_obs(self, percentage):
+        for row in self.grid:
+            for node in row:
+                if randint(1, 100) <= percentage:
+                    node.obs = True
+                    node.face_val = 'O'
 
 
 
@@ -53,7 +63,6 @@ class Grid:
 # algorithms.BFS.breath_first(grid4.grid, 3, 5, 9, 9)
 # grid4.print_grid()
 # print('\n')
-
 
 
 
