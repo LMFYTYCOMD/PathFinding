@@ -10,6 +10,8 @@
 
 (Done) Print out the grid.
 
+Use pygame to visualize instead of printing to terminal
+
 Allow for diagonal traversal. Prompt user to select (y/n)
 
 Store visited nodes in a data structure that allows for more efficient searching.
