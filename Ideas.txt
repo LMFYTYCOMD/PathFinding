@@ -11,3 +11,5 @@
 (Done) Print out the grid.
 
 Allow for diagonal traversal. Prompt user to select (y/n)
+
+Store visited nodes in a data structure that allows for more efficient searching.
